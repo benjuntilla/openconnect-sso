@@ -8,6 +8,21 @@ to Cisco SSL-VPNs
 
 ## Installation
 
+### Using uv (this fork)
+
+This fork keeps the login browser's cookies (including session cookies) between
+runs, so an IdP session or "trust this browser" MFA cookie can skip repeat
+logins. Install it with [uv](https://docs.astral.sh/uv/):
+
+```shell
+$ uv tool install --python 3.12 --with 'setuptools<80' \
+    'openconnect-sso @ git+https://github.com/benjuntilla/openconnect-sso'
+```
+
+Python 3.12 is pinned because the `lxml` 4.x dependency has no wheels for newer
+versions, and `setuptools<80` keeps `pkg_resources`, which the browser still
+imports. Update later with `uv tool upgrade openconnect-sso`.
+
 ### Using pip/pipx
 
 A generic way that works on most 'standard' Linux distributions out of the box.
