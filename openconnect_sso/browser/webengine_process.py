@@ -81,6 +81,10 @@ class Process(multiprocessing.Process):
             argv += ["-platform", "minimal"]
         app = QApplication(argv)
         profile = QWebEngineProfile("openconnect-sso")
+        # Also keep session cookies (e.g. IdP SSO sessions) so repeat logins can skip MFA.
+        profile.setPersistentCookiesPolicy(
+            QWebEngineProfile.PersistentCookiesPolicy.ForcePersistentCookies
+        )
 
         if self.proxy:
             parsed = urlparse(self.proxy)
